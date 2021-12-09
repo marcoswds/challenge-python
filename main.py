@@ -1,4 +1,4 @@
-from os import listdir
+from os import listdir, path
 
 def clean_text(data:str)->str:
     """
@@ -29,8 +29,10 @@ def main():
     words_dict = {}
     indice_reverso = {}
 
+    diretorio = path.dirname(__file__) + '/dataset'
+
     #criando lista com os arquivos na pasta
-    file_list = listdir('dataset')
+    file_list = listdir(diretorio)
 
     #transformando essa lista de str para int, para ordená-los aqui
     #isso é feito pois a ordenação de string considera 19 antes do 2 por exemplo.
@@ -42,7 +44,7 @@ def main():
     for file_path in file_list:
 
         #lendo cada arquivo na pasta
-        with open('dataset/'+str(file_path), 'r') as file:
+        with open(diretorio+'/'+str(file_path), 'r') as file:
             data = file.read()
 
             #limpeza de campos sujos
@@ -65,8 +67,8 @@ def main():
                 if file_path not in indice_reverso[words_dict[word]]:
                     indice_reverso[words_dict[word]].append(file_path)
 
-    # print(words_dict)
-    # print(indice_reverso)
+    print(words_dict)
+    print(indice_reverso)
 
 if __name__ == "__main__":
     main()
